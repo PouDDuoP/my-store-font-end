@@ -23,6 +23,7 @@ export class CounterComponent {
     // Befor and during render
     console.log('ngOnChanges');
     console.log('-'.repeat(10));
+    console.log(changes);
   }
 
 }
