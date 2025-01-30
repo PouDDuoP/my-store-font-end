@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, SimpleChange } from '@angular/core';
+import { Component, Input, SimpleChange, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-counter',
@@ -20,19 +20,24 @@ export class CounterComponent {
     console.log('-'.repeat(10));
   }
 
-  ngOnChanges(changes: SimpleChange) {
+  ngOnChanges(changes: SimpleChanges) {
     // Befor and during render
     // Puede correr multiples veces
     console.log('ngOnChanges');
     console.log('-'.repeat(10));
     console.log(changes);
+    const duration = changes['duration'];
+    console.log(duration);
+    if (duration && duration.currentValue !== duration.previousValue) {
+      this.doSomthing();
+    }
   }
 
   ngOnInit() {
     // after render
     // Corre solo una vez
     // IS ASYNC, iedal for (async, then, subs)
-    console.log('ngOnInit')
+    console.log('ngOnInit');
     console.log('-'.repeat(10));
     console.log('duration =>', this.duration);
     console.log('message =>', this.message);
@@ -41,13 +46,19 @@ export class CounterComponent {
   ngAfterViewInit() {
     // after render
     // hijos ya fueron render?
-    console.log('ngAfterViewInit')
+    console.log('ngAfterViewInit');
     console.log('-'.repeat(10));
   }
 
   ngOnDestroy() {
     // before destroy
-    console.log('ngOnDestroy')
+    console.log('ngOnDestroy');
+    console.log('-'.repeat(10));
+  }
+
+  doSomthing() {
+    // async, can be async
+    console.log('change duration');
     console.log('-'.repeat(10));
   }
 
