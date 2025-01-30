@@ -1,5 +1,6 @@
-import { CommonModule } from '@angular/common';
-import { Component, Input, SimpleChange, SimpleChanges } from '@angular/core';
+import { state } from '@angular/animations';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { Component, Input, signal, SimpleChange, SimpleChanges,  OnInit, OnDestroy, PLATFORM_ID, Inject } from '@angular/core';
 
 @Component({
   selector: 'app-counter',
@@ -11,8 +12,10 @@ import { Component, Input, SimpleChange, SimpleChanges } from '@angular/core';
 export class CounterComponent {
   @Input({required: true}) duration = 0;
   @Input({required: true}) message = '';
+  counter = signal(0);
+  counterRef: number | undefined;
 
-  constructor() {
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
     // NO ASYNC
     // Before render
     // Corre solo una vez
@@ -41,6 +44,14 @@ export class CounterComponent {
     console.log('-'.repeat(10));
     console.log('duration =>', this.duration);
     console.log('message =>', this.message);
+
+    if (isPlatformBrowser(this.platformId)) {
+      this.counterRef = window.setInterval(() => {
+        console.log('run interval')
+        this.counter.update(statePrev => statePrev + 1)
+      }, 1000)
+
+    }
   }
 
   ngAfterViewInit() {
@@ -54,6 +65,10 @@ export class CounterComponent {
     // before destroy
     console.log('ngOnDestroy');
     console.log('-'.repeat(10));
+
+    if (isPlatformBrowser(this.platformId)){
+      window.clearInterval(this.counterRef);
+    }
   }
 
   doSomthing() {
