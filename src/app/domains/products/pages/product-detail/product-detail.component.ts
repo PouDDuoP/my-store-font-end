@@ -14,6 +14,7 @@ export class ProductDetailComponent {
 
   @Input() id?: string;
   product = signal<Product | null>(null);
+  cover = signal('')
   private productSerevice = inject(ProductService);
 
   ngOnInit() {
@@ -22,8 +23,16 @@ export class ProductDetailComponent {
       .subscribe({
         next: (product) => {
           this.product.set(product);
+          if (product.images.length > 0) {
+            this.cover.set(product.images[0])
+          }
         }
       })
     }
   }
+
+  changeCover(newImage: string) {
+    this.cover.set(newImage)
+  }
+
 }
