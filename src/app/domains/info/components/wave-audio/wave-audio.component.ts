@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, Input, signal, ViewChild, viewChild } from '@angular/core';
+import { Component, ElementRef, Input, signal, ViewChild } from '@angular/core';
 
 import WaveSurfer from 'wavesurfer.js';
 
