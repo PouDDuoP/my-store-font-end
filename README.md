@@ -1,9 +1,3 @@
------
-
-¡Claro\! Aquí tienes un borrador de un archivo `README.md` para tu repositorio `my-store-font-end`. Lo he estructurado para que sea informativo y atractivo para los visitantes de tu GitHub, destacando que es el frontend de una aplicación de e-commerce.
-
------
-
 # My Store Frontend - Interfaz de Usuario para tu Tienda Online
 
 -----
