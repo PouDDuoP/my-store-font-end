@@ -32,6 +32,9 @@
       ],
       "@info/*": [
         "./src/app/domains/info/*"
+      ],
+      "@auth/*": [
+        "./src/app/domains/auth/*"
       ]
     }
   },
