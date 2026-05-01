@@ -1,97 +1,87 @@
-# My Store Frontend - Interfaz de Usuario para tu Tienda Online
+# My Store Frontend
 
------
+Frontend Angular 21+ para la aplicación de comercio electrónico My Store.
 
-## 🚀 Descripción General
+## Tecnologías
+- **Angular 21+** (Standalone components, Signals)
+- **Tailwind CSS 4+** (Utility-first styling)
+- **Jest** (Testing framework)
+- **JWT Authentication** (with localStorage persistence)
 
-**My Store Frontend** es la parte del cliente (interfaz de usuario) de una aplicación de comercio electrónico. Este proyecto está diseñado para ser la cara visible de tu tienda online, permitiendo a los usuarios interactuar con los productos, gestionar su carrito de compras y realizar pedidos. Está construido bajo una arquitectura **Monolítica** utilizando **EJS** como motor de plantillas para renderizar vistas dinámicamente desde el servidor (backend).
+## Características
+- ✅ Lista de productos con filtro por categorías
+- ✅ Detalle de producto con galería de imágenes
+- ✅ Carrito de compras con persistencia (localStorage)
+- ✅ Autenticación de usuarios (Login/Register)
+- ✅ Perfil de usuario
+- ✅ Diseño responsivo (Mobile-first)
 
------
+## Instalación
 
-## ✨ Características Principales
-
-  * **Listado y Detalle de Productos:** Visualiza productos con información detallada.
-  * **Carrito de Compras:** Agrega, elimina y gestiona productos antes de la compra.
-  * **Flujo de Pedido:** Proceso intuitivo para que los usuarios finalicen sus compras.
-  * **Autenticación de Usuarios:** Interfaz para el registro e inicio de sesión de clientes.
-  * **Diseño Responsivo:** Adaptado para una experiencia de usuario óptima en dispositivos móviles, tabletas y de escritorio.
-  * **Comunicación con API Backend:** Interactúa con el [repositorio del backend](https://github.com/PouDDuoP/my-store) para obtener y enviar datos.
-
------
-
-## 🛠️ Tecnologías Utilizadas
-
-Este proyecto frontend se basa en las siguientes tecnologías:
-
-  * **Motor de Plantillas:**
-      * **EJS (Embedded JavaScript):** Permite generar HTML dinámicamente desde el servidor, integrado en la arquitectura monolítica.
-  * **Tecnologías Web Estándar:**
-      * **HTML5:** Estructura semántica del contenido.
-      * **CSS3:** Estilos visuales y diseño.
-      * **JavaScript (Vanilla):** Lógica interactiva del lado del cliente.
-  * **Framework CSS:**
-      * **Bootstrap:** Utilizado para un diseño responsivo y componentes predefinidos, acelerando el desarrollo de la interfaz.
-  * **Gestión de Dependencias (Frontend):**
-      * **NPM** o **Yarn:** Para gestionar las librerías y utilidades del lado del cliente.
-  * **Comunicación:**
-      * **Fetch API / Axios (o similar):** Para realizar solicitudes HTTP al backend (si hay llamadas AJAX desde el frontend).
-
------
-
-## 🚀 Instalación y Ejecución Local
-
-Para ejecutar el frontend de **My Store**, primero asegúrate de tener el [backend de My Store](https://github.com/PouDDuoP/my-store) funcionando, ya que este frontend depende de él para obtener los datos.
-
-### Requisitos Previos
-
-  * El **Backend de My Store** debe estar corriendo y accesible (normalmente en `http://localhost:3000`).
-  * **Node.js** (versión 14.x o superior recomendada)
-  * **npm** (viene con Node.js) o **Yarn**
+### Requisitos
+- Node.js 20+ 
+- npm o yarn
+- Backend my-store corriendo en localhost:3000
 
 ### Pasos
+1. Clonar repositorio:
+   ```bash
+   git clone <repo-url>
+   cd my-store-front-end
+   ```
 
-1.  **Clona este repositorio (frontend):**
+2. Instalar dependencias:
+   ```bash
+   npm install
+   ```
 
-    ```bash
-    git clone https://github.com/PouDDuoP/my-store-font-end.git
-    cd my-store-font-end
-    ```
+3. Configurar proxy (ya incluido en proxy.conf.json)
+   - Apunta a `http://localhost:3000`
 
-2.  **Instala las dependencias del proyecto:**
+4. Iniciar servidor de desarrollo:
+   ```bash
+   npm start
+   # O: ng serve
+   ```
+   La aplicación estará disponible en `http://localhost:4200`
 
-    ```bash
-    npm install
-    # o
-    yarn install
-    ```
+## Scripts Disponibles
+- `npm start`: Servidor de desarrollo (localhost:4200)
+- `npm run build`: Build de producción (dist/)
+- `npm test`: Ejecutar tests con Jest
+- `npm run test:watch`: Tests en modo watch
 
-3.  **Configura las variables de entorno (si es necesario):**
-    Aunque la mayor parte de la configuración se realiza en el backend, si este frontend necesita consumir una API en una URL diferente a la predeterminada (`http://localhost:3000`), deberías configurar una variable de entorno. Por ejemplo, crea un archivo `.env` en la raíz con:
+## Estructura del Proyecto
+```
+src/
+├── app/
+│   ├── domains/
+│   │   ├── shared/     # Componentes, servicios y modelos compartidos
+│   │   ├── products/   # Páginas y componentes de productos
+│   │   ├── info/       # Páginas de información (About, NotFound)
+│   │   └── auth/       # Autenticación (login, register, profile)
+│   ├── app.config.ts
+│   ├── app.routes.ts
+│   └── app.component.ts
+├── assets/
+├── styles.css           # Tailwind CSS v4 imports
+└── main.ts
+```
 
-    ```env
-    BACKEND_API_URL=http://localhost:3000
-    ```
+## Integración con Backend
+- **Proxy**: `proxy.conf.json` redirige `/api` a `localhost:3000`
+- **API Endpoints**:
+  - Productos: `/api/v1/products`
+  - Categorías: `/api/v1/categories`
+  - Auth: `/api/v1/auth/login`, `/auth/recovery`, `/auth/change-password`
+- **Autenticación**: JWT almacenado en localStorage, inyectado vía HttpInterceptor
 
-    *(Nota: Si el frontend y el backend se ejecutan en el mismo servidor y se renderizan las vistas con EJS, es posible que no necesites esta variable explícitamente en el frontend, ya que las vistas se generan en el servidor. Inclúyela si planeas una separación más fuerte o llamadas AJAX explícitas.)*
+## Configuración de Testing
+- **Framework**: Jest 30+ con jest-preset-angular
+- **Config**: `jest.config.ts` en raíz
+- **Ejecutar**: `npm test`
 
-4.  **Inicia la aplicación (servidor Express que sirve las vistas):**
-    Si tu `my-store-font-end` es el mismo proyecto que incluye el backend y las vistas se renderizan en el servidor, el comando para iniciar sería el mismo que para el backend. **Asegúrate de que este repositorio contenga la lógica de servidor Express para servir los archivos estáticos y las vistas EJS.**
-
-    ```bash
-    npm start
-    # o para desarrollo (si tienes nodemon configurado)
-    npm run dev
-    ```
-
-    La interfaz de usuario debería estar accesible en `http://localhost:3000` (o el puerto configurado para tu backend/servidor Express).
-
------
-
-## 📞 Contacto
-
-Si tienes alguna pregunta o sugerencia, no dudes en contactarme:
-
-  * **GitHub:** [PouDDuoP](https://www.google.com/search?q=https://github.com/PouDDuoP)
-  * **LinkedIn:** [kevin-alvarado-graterol](https://www.linkedin.com/in/kevin-alvarado-graterol/) (Opcional)
-
------
+## Notas Importantes
+- La aplicación requiere que el backend my-store esté corriendo en localhost:3000
+- Las credenciales por defecto se encuentran en el README del backend
+- El carrito persiste entre recargas usando localStorage

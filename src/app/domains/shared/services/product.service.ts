@@ -8,19 +8,20 @@ import { Product } from '@shared/models/product.model';
 export class ProductService {
 
   private http = inject(HttpClient);
+  private apiUrl = '/api/v1/products';
 
   constructor() { }
 
-  getProducts(category_id?: string) {
-    const url = new URL(`https://api.escuelajs.co/api/v1/products`);
+  getProducts(categoryId?: string) {
+    let url = this.apiUrl;
 
-    if (category_id) {
-      url.searchParams.set('categoryId', category_id);
+    if (categoryId) {
+      url += `?categoryId=${categoryId}`;
     }
-    return this.http.get<Product[]>(url.toString());
+    return this.http.get<Product[]>(url);
   }
 
   getOne(id: string) {
-    return this.http.get<Product>(`https://api.escuelajs.co/api/v1/products/${id}`);
+    return this.http.get<Product>(`${this.apiUrl}/${id}`);
   }
 }
