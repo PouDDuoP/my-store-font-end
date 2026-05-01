@@ -14,7 +14,7 @@
     "sourceMap": true,
     "declaration": false,
     "experimentalDecorators": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "importHelpers": true,
     "target": "ES2022",
     "module": "ES2022",
@@ -24,9 +24,15 @@
       "dom"
     ],
     "paths": {
-      "@shared/*" : ["./src/app/domains/shared/*"],
-      "@products/*" : ["./src/app/domains/products/*"],
-      "@info/*" : ["./src/app/domains/info/*"],
+      "@shared/*": [
+        "./src/app/domains/shared/*"
+      ],
+      "@products/*": [
+        "./src/app/domains/products/*"
+      ],
+      "@info/*": [
+        "./src/app/domains/info/*"
+      ]
     }
   },
   "angularCompilerOptions": {
