@@ -8,14 +8,15 @@ import { Category } from '@shared/models/category.model';
 export class CategoryService {
 
   private http = inject(HttpClient);
+  private apiUrl = '/api/v1/categories';
 
   constructor() { }
 
   getCategories() {
-    return this.http.get<Category[]>(`https://api.escuelajs.co/api/v1/categories`);
+    return this.http.get<Category[]>(this.apiUrl);
   }
 
   getOne(id: string) {
-    return this.http.get<Category>(`https://api.escuelajs.co/api/v1/categories/${id}`);
+    return this.http.get<Category>(`${this.apiUrl}/${id}`);
   }
 }

@@ -9,11 +9,10 @@ import { CategoryService } from '@shared/services/category.service';
 import { ProductService } from '@shared/services/product.service';
 
 @Component({
-  selector: 'app-list',
-  standalone: true,
-  imports: [ProductComponent, RouterLink],
-  templateUrl: './list.component.html',
-  styleUrl: './list.component.css'
+    selector: 'app-list',
+    imports: [ProductComponent, RouterLink],
+    templateUrl: './list.component.html',
+    styleUrl: './list.component.css'
 })
 export default class ListComponent {
 

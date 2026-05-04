@@ -5,11 +5,10 @@ import { WaveAudioComponent } from '@info/components/wave-audio/wave-audio.compo
 import { HighlightDirective } from '@shared/directives/highlight.directive';
 
 @Component({
-  selector: 'app-about',
-  standalone: true,
-  imports: [CounterComponent, WaveAudioComponent, HighlightDirective],
-  templateUrl: './about.component.html',
-  styleUrl: './about.component.css'
+    selector: 'app-about',
+    imports: [CounterComponent, WaveAudioComponent, HighlightDirective],
+    templateUrl: './about.component.html',
+    styleUrl: './about.component.css'
 })
 export default class AboutComponent {
   duration = signal(1000);

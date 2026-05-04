@@ -13,13 +13,13 @@
 
 <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
     <a [routerLink]="['/product',product.id]" >
-        <img [src]="product.images[0]" [alt]="product.title" class="p-8 rounded-t-lg"/>
+        <img [src]="product.image" [alt]="product.name" class="p-8 rounded-t-lg"/>
     </a>
     <div class="px-5 pb-5">
         <a [routerLink]="['/product',product.id]">
-            <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{{ product.title | uppercase | reverse }}</h5>
+            <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{{ product.name | uppercase | reverse }}</h5>
         </a>
-        <span class="text-2x1 font-bold text-gray-900 dark:text-yellow-50">{{ product.creationAt | timeAgo}}</span>
+        <span class="text-2x1 font-bold text-gray-900 dark:text-yellow-50">{{ product.createdAt | timeAgo}}</span>
         <div class="flex items-center justify-between">
             <span class="text-3xl font-bold text-gray-900 dark:text-white">{{ product.price | currency:'$':'symbol':'1.2' }}</span>
             <a href="#"
