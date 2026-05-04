@@ -1,0 +1,11 @@
+/* Focus styles for accessibility - uses theme token via Tailwind utility in template */
+button:focus-visible {
+  outline: 2px solid rgb(var(--color-primary) / 1);
+  outline-offset: 2px;
+}
+
+/* Smooth transitions - complements Tailwind transition-colors/transition-shadow in template */
+a,
+button {
+  transition: all 0.2s ease-in-out;
+}
