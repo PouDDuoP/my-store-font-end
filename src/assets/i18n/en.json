@@ -1,0 +1,96 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About"
+  },
+  "auth": {
+    "login": "Login",
+    "logout": "Logout",
+    "register": "Register",
+    "user": "User",
+    "password": "Password",
+    "welcomeBack": "Welcome back",
+    "createYourAccount": "Create your account",
+    "dontHaveAccount": "Don't have an account?",
+    "alreadyHaveAccount": "Already have an account?",
+    "createOneNow": "Create one now",
+    "signIn": "Sign In",
+    "registrationMessage": "User registration is handled by the administrator. Please contact the admin to create a new account."
+  },
+  "products": {
+    "search": "Search products...",
+    "noProducts": "No products found",
+    "tryAdjusting": "Try adjusting your search query",
+    "allProducts": "All Products",
+    "categories": "Categories",
+    "price": "Price",
+    "addToCart": "Add to cart",
+    "showingProducts": "Showing {{count}} products",
+    "inCategory": "in selected category"
+  },
+  "cart": {
+    "myCart": "My Cart",
+    "empty": "Your cart is empty",
+    "startShopping": "Start shopping",
+    "total": "Total:",
+    "items": "Items:",
+    "remove": "Remove",
+    "proceedToCheckout": "Proceed to Checkout",
+    "viewCart": "View Cart",
+    "openCart": "Open shopping cart",
+    "removeItemAria": "Remove {{name}} from cart"
+  },
+  "common": {
+    "backToHome": "Back to Homepage",
+    "somethingMissing": "Something's missing.",
+    "notFound": "Sorry, we can't find that page. You'll find lots to explore on the home page."
+  },
+  "about": {
+    "title": "About Us",
+    "activeClients": "Number of active clients",
+    "content": "We are a modern e-commerce platform dedicated to providing the best products..."
+  },
+  "profile": {
+    "title": "Profile",
+    "loggedInAs": "You are logged in as",
+    "logout": "Logout"
+  },
+  "search": {
+    "placeholder": "Search products...",
+    "clear": "Clear search"
+  },
+  "product": {
+    "addToCart": "Add to Cart",
+    "category": "Category:",
+    "addToCartAria": "Add {{name}} to cart"
+  },
+  "checkout": {
+    "proceed": "Proceed to Checkout",
+    "items": "Items:"
+  },
+  "language": {
+    "switch": "Switch Language",
+    "switchTo": "Switch to {{lang}}",
+    "english": "English",
+    "spanish": "Spanish"
+  },
+  "home": {
+    "heroTitle": "Welcome to My Store",
+    "heroSubtitle": "Discover amazing products at great prices",
+    "featuredProducts": "Featured Products",
+    "shopNow": "Shop Now",
+    "whyChooseUs": "Why Choose Us"
+  },
+  "errors": {
+    "generic": "Something went wrong. Please try again.",
+    "network": "Network error. Please check your connection.",
+    "unauthorized": "Please log in to continue."
+  },
+  "buttons": {
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "close": "Close"
+  }
+}
