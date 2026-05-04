@@ -1,0 +1,96 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "about": "Acerca de"
+  },
+  "auth": {
+    "login": "Iniciar Sesión",
+    "logout": "Cerrar Sesión",
+    "register": "Registrarse",
+    "user": "Usuario",
+    "password": "Contraseña",
+    "welcomeBack": "Bienvenido de vuelta",
+    "createYourAccount": "Crea tu cuenta",
+    "dontHaveAccount": "¿No tienes cuenta?",
+    "alreadyHaveAccount": "¿Ya tienes cuenta?",
+    "createOneNow": "Créala ahora",
+    "signIn": "Iniciar Sesión",
+    "registrationMessage": "El registro de usuarios es gestionado por el administrador. Por favor, contacta al administrador para crear una nueva cuenta."
+  },
+  "products": {
+    "search": "Buscar productos...",
+    "noProducts": "No se encontraron productos",
+    "tryAdjusting": "Intenta ajustar tu búsqueda",
+    "allProducts": "Todos los Productos",
+    "categories": "Categorías",
+    "price": "Precio",
+    "addToCart": "Agregar al carrito",
+    "showingProducts": "Mostrando {{count}} productos",
+    "inCategory": "en la categoría seleccionada"
+  },
+  "cart": {
+    "myCart": "Mi Carrito",
+    "empty": "Tu carrito está vacío",
+    "startShopping": "Empezar a comprar",
+    "total": "Total:",
+    "items": "Artículos:",
+    "remove": "Eliminar",
+    "proceedToCheckout": "Proceder al Pago",
+    "viewCart": "Ver Carrito",
+    "openCart": "Abrir carrito de compras",
+    "removeItemAria": "Eliminar {{name}} del carrito"
+  },
+  "common": {
+    "backToHome": "Volver al Inicio",
+    "somethingMissing": "Algo falta.",
+    "notFound": "Lo sentimos, no encontramos esa página. Encontrarás mucho por explorar en la página principal."
+  },
+  "about": {
+    "title": "Sobre Nosotros",
+    "activeClients": "Número de clientes activos",
+    "content": "Somos una plataforma de comercio electrónico moderna dedicada a ofrecer los mejores productos..."
+  },
+  "profile": {
+    "title": "Perfil",
+    "loggedInAs": "Has iniciado sesión como",
+    "logout": "Cerrar Sesión"
+  },
+  "search": {
+    "placeholder": "Buscar productos...",
+    "clear": "Limpiar búsqueda"
+  },
+  "product": {
+    "addToCart": "Agregar al Carrito",
+    "category": "Categoría:",
+    "addToCartAria": "Agregar {{name}} al carrito"
+  },
+  "checkout": {
+    "proceed": "Proceder al Pago",
+    "items": "Artículos:"
+  },
+  "language": {
+    "switch": "Cambiar Idioma",
+    "switchTo": "Cambiar a {{lang}}",
+    "english": "Inglés",
+    "spanish": "Español"
+  },
+  "home": {
+    "heroTitle": "Bienvenido a Mi Tienda",
+    "heroSubtitle": "Descubre productos increíbles a excelentes precios",
+    "featuredProducts": "Productos Destacados",
+    "shopNow": "Compra Ahora",
+    "whyChooseUs": "¿Por Qué Elegirnos?"
+  },
+  "errors": {
+    "generic": "Algo salió mal. Por favor, inténtalo de nuevo.",
+    "network": "Error de red. Por favor, verifica tu conexión.",
+    "unauthorized": "Por favor, inicia sesión para continuar."
+  },
+  "buttons": {
+    "confirm": "Confirmar",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "delete": "Eliminar",
+    "close": "Cerrar"
+  }
+}

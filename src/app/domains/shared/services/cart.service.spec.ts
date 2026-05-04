@@ -1,3 +1,5 @@
+import { TestBed } from '@angular/core/testing';
+import { PLATFORM_ID } from '@angular/core';
 import { CartService } from './cart.service';
 import { Product } from '../models/product.model';
 
@@ -17,8 +19,16 @@ describe('CartService', () => {
   beforeEach(() => {
     // Clear localStorage before each test
     localStorage.clear();
-    // Create a new instance to avoid signal cross-contamination
-    service = new CartService();
+    
+    // Use TestBed to provide injection context
+    TestBed.configureTestingModule({
+      providers: [
+        CartService,
+        { provide: PLATFORM_ID, useValue: 'browser' }  // Mock as browser platform
+      ]
+    });
+    
+    service = TestBed.inject(CartService);
   });
 
   it('should be created', () => {
@@ -54,9 +64,21 @@ describe('CartService', () => {
   });
 
   it('should load cart from localStorage on init', () => {
+    // Reset the testing module to get a fresh service instance
+    TestBed.resetTestingModule();
+    
+    // Set localStorage BEFORE configuring the module
     localStorage.setItem('my-store-cart', JSON.stringify([mockProduct]));
-    // Re-create service to test constructor loading
-    const newService = new CartService();
+    
+    TestBed.configureTestingModule({
+      providers: [
+        CartService,
+        { provide: PLATFORM_ID, useValue: 'browser' }
+      ]
+    });
+    
+    // Create a new service instance - it should load from localStorage
+    const newService = TestBed.inject(CartService);
     expect(newService.cart().length).toBe(1);
   });
 

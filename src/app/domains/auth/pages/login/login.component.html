@@ -1,1 +1,32 @@
-<app-auth-form title="Login" (submitted)="onLogin($event)" />
+<div class="min-h-screen bg-background py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+  <!-- Geometric pattern background - asymmetric -->
+  <div class="absolute top-0 right-0 w-1/3 h-full bg-emerald-soft/20 -z-10 transform rotate-3 translate-x-10"></div>
+  <div class="absolute bottom-0 left-0 w-1/4 h-1/2 bg-emerald-dark -z-10 transform -rotate-2"></div>
+
+  <div class="max-w-2xl w-full ml-auto mr-16 space-y-8 relative z-10">
+    <!-- Logo/Branding - asymmetric positioning -->
+    <div class="text-left transform -rotate-1">
+      <h1 class="text-5xl font-bold text-emerald-dark font-display">MS-KA</h1>
+      <p class="mt-2 text-lg text-emerald-dark font-display">{{ 'auth.welcomeBack' | translate }}</p>
+    </div>
+    
+    <!-- Auth Form - offset positioning -->
+    <div class="ml-12 transform translate-y-4">
+      <app-auth-form 
+        title="Sign In to Your Account" 
+        loginType="login"
+        (formSubmit)="onLogin($event)" 
+      />
+    </div>
+    
+    <!-- Additional links - asymmetric -->
+    <div class="text-left ml-24 space-y-2">
+      <p class="text-sm text-emerald-dark">
+        {{ 'auth.dontHaveAccount' | translate }} 
+        <a routerLink="/register" class="text-accent hover:text-emerald-dark font-medium transition-colors font-display underline">
+          {{ 'auth.createOneNow' | translate }}
+        </a>
+      </p>
+    </div>
+  </div>
+</div>

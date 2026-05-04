@@ -1,11 +1,13 @@
-<div class="px-10">
-  <h1 class="text-lg font-bold">About</h1>
-  <p class="text-xs">Lorem ipsum dolor <span appHighlight>sit amet consectetur adipisicing elit.</span> Nesciunt laboriosam dignissimos architecto fuga quas non laborum illum quo, provident dicta. Earum, commodi. Voluptates quod veritatis ipsa numquam aut, laboriosam magni.</p>
-  <p class="text-sm">Numero de Cientes activos </p>
+<div class="px-10 py-8">
+  <h1 class="text-3xl font-bold text-emerald-soft font-display mb-4">{{ 'about.title' | translate }}</h1>
+  <p class="text-sm text-text/80 max-w-2xl">{{ 'about.content' | translate }}</p>
+  <p class="text-sm text-text/70 mt-2">{{ 'about.activeClients' | translate }}</p>
   @if (duration() > 0) {
-    <app-counter [duration]="duration()" [message]="message()"/>
+    <div class="mt-6">
+      <app-counter [duration]="duration()" [message]="message()"/>
+    </div>
   }
-  <div>
+  <div class="mt-8">
     <app-wave-audio audioUrl="assets/audio.mp3" />
   </div>
 </div>

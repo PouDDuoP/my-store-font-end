@@ -1,4 +1,5 @@
-import { computed, Injectable, signal } from '@angular/core';
+import { computed, Injectable, signal, PLATFORM_ID, inject } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { Product } from '@shared/models/product.model';
 
 const CART_STORAGE_KEY = 'my-store-cart';
@@ -7,6 +8,8 @@ const CART_STORAGE_KEY = 'my-store-cart';
   providedIn: 'root'
 })
 export class CartService {
+  private platformId = inject(PLATFORM_ID);
+  
   cart = signal<Product[]>(this.loadCart());
   
   total = computed(() => {
@@ -15,6 +18,7 @@ export class CartService {
   });
 
   private loadCart(): Product[] {
+    if (!isPlatformBrowser(this.platformId)) return [];
     const saved = localStorage.getItem(CART_STORAGE_KEY);
     if (!saved) return [];
     try {
@@ -37,10 +41,14 @@ export class CartService {
 
   clearCart() {
     this.cart.set([]);
-    localStorage.removeItem(CART_STORAGE_KEY);
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.removeItem(CART_STORAGE_KEY);
+    }
   }
 
   private saveCart() {
-    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(this.cart()));
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(this.cart()));
+    }
   }
 }

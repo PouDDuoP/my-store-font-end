@@ -99,7 +99,61 @@ The system SHALL allow authenticated users to change their password via POST `/a
 - AND success message is displayed
 
 #### Scenario: Incorrect current password
-
 - GIVEN user is authenticated and on profile page
 - WHEN incorrect current password is submitted
 - THEN error message indicates current password is invalid
+
+### Requirement: Login Page Layout
+
+The system MUST render the login page with a distinct credentials zone visually separated from other page content, using the green/gray theme. The page MUST include the MS-KA logo, a heading "Login", and the auth form within a centered card-like container.
+
+#### Scenario: Login page displays credentials zone
+
+- GIVEN an unauthenticated user visits `/login`
+- WHEN the page renders
+- THEN a distinct card/section containing email and password inputs MUST be visible
+- AND the MS-KA logo MUST be present in the header
+
+#### Scenario: Login page uses theme colors
+
+- GIVEN the login page renders
+- WHEN inspected
+- THEN the credentials zone MUST use `bg-white` with `border-gray-mid` and primary color accents
+
+### Requirement: Auth Form Visual Styling
+
+The system MUST style the `auth-form` component inputs and button using Tailwind theme tokens: inputs with `border-gray-mid` and focus `border-primary`, button with `bg-primary` text `text-white`, and proper spacing (`p-4`, `gap-4`). The form MUST have associated `<label>` elements for accessibility.
+
+#### Scenario: Auth form inputs are styled
+
+- GIVEN the auth form renders
+- WHEN inspected
+- THEN email and password inputs MUST have `border-gray-mid` and focus state `border-primary`
+
+#### Scenario: Auth form submit button uses primary color
+
+- GIVEN the auth form renders
+- WHEN inspected
+- THEN the submit button MUST have `bg-primary` and `text-white`
+
+#### Scenario: Auth form is accessible
+
+- GIVEN the auth form renders
+- WHEN a screen reader reads the form
+- THEN each input MUST have an associated `<label>` ("Email", "Password")
+
+### Requirement: Login Behavior Unchanged
+
+The system MUST preserve existing login behavior: on successful authentication, navigate to `/`; on failure, log the error to console. No API or service logic changes are permitted.
+
+#### Scenario: Successful login navigates home
+
+- GIVEN valid credentials are submitted
+- WHEN the auth service returns success
+- THEN the router MUST navigate to `/`
+
+#### Scenario: Failed login logs error
+
+- GIVEN invalid credentials are submitted
+- WHEN the auth service returns an error
+- THEN the error MUST be logged to console

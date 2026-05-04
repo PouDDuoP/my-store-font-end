@@ -3,10 +3,11 @@ import { Component, Input, inject, signal } from '@angular/core';
 import { Product } from '@shared/models/product.model';
 import { CartService } from '@shared/services/cart.service';
 import { ProductService } from '@shared/services/product.service';
+import { TranslatePipe } from '@shared/pipes/translate.pipe';
 
 @Component({
     selector: 'app-product-detail',
-    imports: [CommonModule],
+    imports: [CommonModule, TranslatePipe],
     templateUrl: './product-detail.component.html',
     styleUrl: './product-detail.component.css'
 })
