@@ -12,13 +12,12 @@ export class ProductService {
 
   constructor() { }
 
-  getProducts(categoryId?: string) {
-    let url = this.apiUrl;
+  getProducts() {
+    return this.http.get<Product[]>(this.apiUrl);
+  }
 
-    if (categoryId) {
-      url += `?categoryId=${categoryId}`;
-    }
-    return this.http.get<Product[]>(url);
+  getProductsByCategory(categoryId: string) {
+    return this.http.get<Product[]>(`/api/v1/categories/${categoryId}/products`);
   }
 
   getOne(id: string) {

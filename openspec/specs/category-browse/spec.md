@@ -56,7 +56,66 @@ The system SHALL inject `HttpClient` using `inject()` function and make API call
 - AND response is mapped to Category interface
 
 #### Scenario: Service uses inject() pattern
-
 - GIVEN category.service.ts is inspected
 - THEN `http = inject(HttpClient)` is used
 - AND NOT constructor injection pattern
+
+### Requirement: Category Filter UI
+
+The system MUST display categories as clickable links in the product list sidebar. The active category MUST have a visual indicator (e.g., `underline`, `font-semibold`, or `bg-primary` highlight). Clicking a category MUST update the product list via `queryParams` or direct service call.
+
+#### Scenario: Categories display as links
+
+- GIVEN categories are loaded from the API
+- WHEN the product list renders
+- THEN each category MUST be displayed as a clickable link
+
+#### Scenario: Active category shows indicator
+
+- GIVEN the user clicks "Electronics" category
+- WHEN the product list updates
+- THEN "Electronics" link MUST have an active visual style (e.g., `font-semibold` or `underline`)
+
+#### Scenario: "All" category is default active
+
+- GIVEN the product list loads without a category filter
+- WHEN the page renders
+- THEN the "All" link MUST show the active visual style
+
+#### Scenario: Clicking category filters products
+
+- GIVEN categories exist and "Electronics" is clicked
+- WHEN the click event fires
+- THEN the product list MUST update to show only Electronics products
+
+### Requirement: Category and Search Integration
+
+The system MUST allow category filtering and text search to work together: selecting a category AND entering a search term MUST display products matching both criteria (category AND name contains search term).
+
+#### Scenario: Category + search combo filters correctly
+
+- GIVEN "Electronics" is selected and search term is "phone"
+- WHEN both filters are active
+- THEN only Electronics products with "phone" in the name MUST be displayed
+
+#### Scenario: Clearing search preserves category
+
+- GIVEN "Electronics" is selected with search term "phone"
+- WHEN the search is cleared
+- THEN all Electronics products MUST be displayed
+
+### Requirement: Category Filter Accessibility
+
+The system MUST ensure category links are keyboard focusable and have meaningful text. The active category MUST be identifiable by screen readers via `aria-current="page"` or similar.
+
+#### Scenario: Category links are keyboard accessible
+
+- GIVEN the category list is rendered
+- WHEN user tabs through the list
+- THEN each category link MUST receive focus
+
+#### Scenario: Active category is announced to screen reader
+
+- GIVEN "Electronics" is the active category
+- WHEN a screen reader reads the category list
+- THEN "Electronics" MUST be identified as the current category (e.g., `aria-current="true"`)

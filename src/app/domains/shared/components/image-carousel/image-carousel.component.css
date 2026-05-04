@@ -1,0 +1,27 @@
+:host {
+  display: block;
+}
+
+/* Smooth transitions for carousel slides */
+img {
+  transition: opacity 0.3s ease-in-out;
+}
+
+/* Ensure focus styles are visible */
+button:focus-visible {
+  outline: 2px solid rgb(var(--color-primary) / 1);
+  outline-offset: 2px;
+}
+
+/* Screen reader only utility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

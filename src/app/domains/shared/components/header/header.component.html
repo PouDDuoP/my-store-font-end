@@ -1,103 +1,204 @@
-<nav>
-  <div
-    class="w-full flex flex-wrap items-center justify-between mx-auto py-4"
+<nav class="sticky top-0 z-50 bg-emerald-dark border-b-4 border-accent">
+  <div class="w-full flex flex-wrap items-center justify-between mx-auto py-3 px-4 md:px-6 lg:px-8">
+    <div class="flex items-center space-x-6 md:space-x-8">
+      <app-logo size="md"></app-logo>
+      <ul class="hidden md:flex items-center space-x-6">
+        @for (link of navLinks; track link.path) {
+          <li>
+            <a
+              [routerLink]="link.path"
+              routerLinkActive="text-emerald-soft font-semibold"
+              [routerLinkActiveOptions]="{exact: link.exact}"
+              class="block py-2 text-sm text-white hover:text-emerald-soft transition-colors font-display relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-emerald-soft after:transition-all after:duration-100 hover:after:w-full"
+              [attr.aria-current]="link.path === currentRoute() ? 'page' : null"
+            >{{ link.label | translate }}</a>
+          </li>
+        }
+      </ul>
+    </div>
+    
+    <div class="flex items-center space-x-3 md:space-x-4">
+      <!-- Mobile Menu Button -->
+      <button 
+        class="md:hidden p-2 hover:bg-emerald-soft/20 transition-colors"
+        (click)="toggleMobileMenu()"
+        aria-label="Toggle navigation menu"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-emerald-soft" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+        </svg>
+      </button>
+
+    <!-- Language Switcher -->
+    <button 
+      (click)="toggleLanguage()"
+      class="px-3 py-1.5 text-sm font-bold border-2 border-accent hover:bg-emerald-soft/20 transition-colors"
+      [attr.aria-label]="languageSwitchLabel()"
     >
-    <div class="flex items-center space-x-8">
-      <a href="https://flowbite.com/" class="flex items-center ">
-        <img
-          src="https://flowbite.com/docs/images/logo.svg"
-          class="h-6 mr-3"
-          alt="Flowbite Logo"
+      {{ languageService.isEnglish() ? 'ES' : 'EN' }}
+    </button>
+
+    <!-- Auth State -->
+    @if (isAuthenticated()) {
+      <div class="hidden sm:flex items-center space-x-3">
+        <span class="text-sm text-emerald-soft">{{ userEmail() }}</span>
+        <button 
+          (click)="logout()"
+          class="btn-emerald px-4 py-2 text-sm"
+          aria-label="Sign out of your account"
+        >{{ 'auth.logout' | translate }}</button>
+      </div>
+    } @else {
+      <a 
+        routerLink="/login"
+        class="btn-emerald px-4 py-2 text-sm"
+        aria-label="Sign in to your account"
+      >{{ 'auth.login' | translate }}</a>
+    }
+      
+      <!-- Cart Button -->
+      <button 
+        class="relative p-2 hover:bg-emerald-soft/20 transition-colors group"
+        (click)="toggleSideMenu()"
+        [attr.aria-label]="'cart.openCart' | translate"
+      >
+        @if (itemCount() > 0) {
+          <div class="absolute -top-1 -right-1 h-5 w-5 bg-emerald-soft text-white text-xs flex items-center justify-center font-bold">
+            {{ itemCount() }}
+          </div>
+        }
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-6 h-6 text-emerald-soft group-hover:text-white transition-colors"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
           />
-          <span class="self-center text-xl font-semibold whitespace-nowrap"
-            >Flowbite</span
-            >
-          </a>
-          <ul class="flex space-x-6">
-            <li>
-              <a
-                routerLink = "/"
-                routerLinkActive="underline"
-                [routerLinkActiveOptions]="{exact: true}"
-                class="block hover:underline"
-                aria-current="page"
-                >Home</a
+        </svg>
+      </button>
+    </div>
+  </div>
+
+<!-- Mobile Menu -->
+  @if (showMobileMenu()) {
+    <div class="md:hidden bg-emerald-dark border-t-2 border-accent px-4 py-2 space-y-2">
+      @for (link of navLinks; track link.path) {
+        <a
+          [routerLink]="link.path"
+          class="block py-2 text-sm text-white hover:text-emerald-soft transition-colors font-display"
+          (click)="toggleMobileMenu()"
+        >{{ link.label | translate }}</a>
+      }
+      @if (isAuthenticated()) {
+        <button 
+          (click)="logout(); toggleMobileMenu()"
+          class="block py-2 text-sm text-white hover:text-emerald-soft transition-colors"
+        >{{ 'auth.logout' | translate }}</button>
+      }
+    </div>
+  }
+</nav>
+
+
+<div
+                class="fixed top-0 right-0 z-50 w-full sm:w-96 h-screen transition-transform duration-100 ease-out flex flex-col"
+                [class.translate-x-full]="hideSideMenu()"
+                style="background: #ffffff; border-left: 4px solid var(--color-border);"
                 >
-              </li>
-              <li>
-                <a
-                  routerLink = "/about"
-                  routerLinkActive="underline"
-                  class="block hover:underline"
-                  >About</a
-                  >
-                </li>
-                <li>
-                  <a
-                    routerLink = "/services"
-                    routerLinkActive="underline"
-                    class="block hover:underline"
-                    >Services</a
-                    >
-                  </li>
-                </ul>
-              </div>
-              <div class="flex items-center">
-                <button class="p-2 border rounded relative" (click)="toogleSideMenu()">
-                  <div class="absolute -top-2 -left-2 rounded h-5 w-5 bg-black text-white text-xs">{{ cart().length }}</div>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="1.5"
-                    stroke="currentColor"
-                    class="w-6 h-6"
-                    >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
-                      />
-                    </svg>
-                  </button>
+                 <div class="flex justify-between items-center border-b-4 border-border pb-4">
+                   <p class="text-xl font-semibold text-text font-display">{{ 'cart.myCart' | translate }} ({{ itemCount() }})</p>
+                  <button (click)="toggleSideMenu()" class="btn-emerald p-1" aria-label="Close cart">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      class="w-6 h-6 text-text"
+                      >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M6 18L18 6M6 6l12 12"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+<!-- Scrollable Cart Items -->
+                   <div class="flex-1 overflow-y-auto py-4 space-y-3">
+                     @for (item of cartItemsWithQuantity(); track item.product.id) {
+                       <div class="flex items-center space-x-3 p-3 border-b-4 border-border hover:bg-background transition-colors group">
+                         <!-- Product Thumbnail -->
+                         <div class="relative flex-shrink-0">
+                           <img 
+                             class="w-16 h-16 object-cover shadow-sm group-hover:shadow-md transition-shadow duration-100" 
+                             [src]="item.product.image" 
+                             [alt]="item.product.name"
+                             loading="lazy"
+                           >
+                           <div class="absolute -bottom-1 -right-1 bg-emerald-soft text-white text-xs w-5 h-5 flex items-center justify-center font-bold">
+                             {{ item.quantity }}
+                           </div>
+                         </div>
+                         <div class="flex-1 min-w-0">
+                           <h3 class="text-sm font-semibold text-text truncate font-display">{{ item.product.name }}</h3>
+                           <div class="flex items-center justify-between mt-1">
+                             <span class="text-xs text-text/70">{{ item.quantity }} x {{ item.product.price | currency:'USD':'symbol':'1.2-2' }}</span>
+                             <span class="text-sm font-bold text-text">{{ item.product.price * item.quantity | currency:'USD':'symbol':'1.2-2' }}</span>
+                           </div>
+                         </div>
+                         <!-- Remove Button -->
+                         <button 
+                           (click)="removeFromCart(item.product)"
+                           class="btn-emerald p-1.5 opacity-0 group-hover:opacity-100"
+                           [attr.aria-label]="'cart.removeItemAria' | translate:{name: item.product.name}"
+                         >
+                           <svg
+                             xmlns="http://www.w3.org/2000/svg"
+                             fill="none"
+                             viewBox="0 0 24 24"
+                             stroke-width="1.5"
+                             stroke="currentColor"
+                             class="w-4 h-4"
+                           >
+                             <path
+                               stroke-linecap="round"
+                               stroke-linejoin="round"
+                               d="M6 18L18 6M6 6l12 12"
+                             />
+                           </svg>
+                         </button>
+                       </div>
+                     } @empty {
+                        <div class="flex flex-col items-center justify-center py-12 text-text/50">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 mb-3" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+                          </svg>
+                          <p class="text-sm">{{ 'cart.empty' | translate }}</p>
+                          <a routerLink="/" (click)="toggleSideMenu()" class="mt-2 text-sm text-emerald-soft hover:underline">{{ 'cart.startShopping' | translate }}</a>
+                        </div>
+                     }
+                   </div>
+                  <!-- Cart Total (Sticky at Bottom) -->
+                   <div class="border-t-4 border-border pt-4 mt-auto">
+                     <div class="flex justify-between items-center">
+                       <span class="font-semibold text-text">{{ 'cart.total' | translate }}</span>
+                       <span class="font-bold text-text text-lg">{{ total() | currency:'USD':'symbol':'1.2-2' }}</span>
+                     </div>
+                     @if (itemCount() > 0) {
+                       <a 
+                         routerLink="/cart" 
+                         class="btn-emerald mt-3 block w-full text-center px-4 py-2 text-sm"
+                         (click)="toggleSideMenu()"
+                         >
+                         {{ 'cart.viewCart' | translate }}
+                       </a>
+                     }
+                   </div>
                 </div>
-              </div>
-            </nav>
-
-
-            <div
-              class="fixed border-l-4 top-0 right-0 bg-red z-40 w-72 h-screen p-4 overflow-y-auto transition-transform bg-white"
-              [class.translate-x-full]="hideSideMenu()"
-              >
-              <div class="flex justify-between items-center">
-                <p class="text-xl">My Cart</p>
-                <button (click)="toogleSideMenu()">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="1.5"
-                    stroke="currentColor"
-                    class="w-6 h-6"
-                    >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M6 18L18 6M6 6l12 12"
-                      />
-                    </svg>
-                  </button>
-                </div>
-                <div class="pt-4 flex flex-col">
-                  @for (product of cart(); track product) {
-                    <div class="flex justify-between items-center space-y-2">
-                      <div class="flex space-x-2 items-center">
-                        <img class="w-6 h-6" [src]="product.image" [alt]="product.name">
-                        <h3>{{ product.name }}</h3>
-                      </div>
-                      <p>{{ product.price }}</p>
-                    </div>
-                  }
-                  <div>Total: {{ total() }}</div>
-                </div>
-              </div>

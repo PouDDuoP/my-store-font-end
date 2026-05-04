@@ -1,7 +1,31 @@
-<div class="max-w-md mx-auto mt-8 p-6 border rounded shadow">
-  <h2 class="text-2xl font-bold mb-6">Register</h2>
-  <div class="mb-4 p-4 bg-yellow-100 border border-yellow-400 rounded">
-    <p class="text-yellow-800">{{ registrationMessage }}</p>
+<div class="min-h-screen flex items-center justify-center bg-background py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-md w-full space-y-8">
+    <!-- Logo/Branding placeholder -->
+    <div class="text-left transform -rotate-1">
+      <h1 class="text-5xl font-bold text-emerald-dark font-display">MS-KA</h1>
+      <p class="mt-2 text-lg text-emerald-dark font-display">{{ 'auth.createYourAccount' | translate }}</p>
+    </div>
+    
+    <!-- Registration Message -->
+    <div class="mb-4 p-4 bg-emerald-soft/20 border-2 border-accent">
+      <p class="text-emerald-dark text-sm">{{ 'auth.registrationMessage' | translate }}</p>
+    </div>
+    
+    <!-- Auth Form -->
+    <app-auth-form 
+      title="Request Registration" 
+      loginType="register"
+      (formSubmit)="onRegister($event)" 
+    />
+    
+    <!-- Additional links -->
+    <div class="text-left ml-12 space-y-2">
+      <p class="text-sm text-emerald-dark">
+        {{ 'auth.alreadyHaveAccount' | translate }} 
+        <a routerLink="/login" class="text-accent hover:text-emerald-dark font-medium transition-colors font-display underline">
+          {{ 'auth.signIn' | translate }}
+        </a>
+      </p>
+    </div>
   </div>
-  <app-auth-form title="Request Registration" (submitted)="onRegister($event)" />
 </div>

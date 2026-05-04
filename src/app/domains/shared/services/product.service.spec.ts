@@ -46,12 +46,12 @@ describe('ProductService', () => {
   });
 
   it('should fetch products with category filter', (done) => {
-    service.getProducts('1').subscribe((products) => {
+    service.getProductsByCategory('1').subscribe((products) => {
       expect(products).toBeTruthy();
       done();
     });
 
-    const req = httpMock.expectOne('/api/v1/products?categoryId=1');
+    const req = httpMock.expectOne('/api/v1/categories/1/products');
     expect(req.request.method).toBe('GET');
     req.flush([]);
   });

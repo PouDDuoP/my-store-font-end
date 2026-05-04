@@ -1,22 +1,28 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, inject, input, output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { TranslatePipe } from '@shared/pipes/translate.pipe';
 
 @Component({
   selector: 'app-auth-form',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TranslatePipe],
   templateUrl: './auth-form.component.html',
   styleUrl: './auth-form.component.css'
 })
 export class AuthFormComponent {
-  @Input() title = 'Authentication';
-  @Output() submitted = new EventEmitter<{ email: string; password: string }>();
+  // Signal-based inputs (Angular 21 pattern)
+  title = input<string>('Authentication');
+  loginType = input<'login' | 'register'>('login');
   
-  email = '';
-  password = '';
+  // Signal-based output (Angular 21 pattern)
+  formSubmit = output<{ email: string; password: string }>();
+  
+  // Form state using signals
+  email = signal('');
+  password = signal('');
   
   onSubmit() {
-    this.submitted.emit({ email: this.email, password: this.password });
+    this.formSubmit.emit({ email: this.email(), password: this.password() });
   }
 }
