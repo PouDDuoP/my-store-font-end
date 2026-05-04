@@ -67,7 +67,66 @@ The system SHALL use Angular Signals to provide reactive cart state that updates
 - AND total price updates automatically
 
 #### Scenario: Cart count in header
-
 - GIVEN user is viewing any page with header
 - WHEN cart items change via signal
 - THEN header cart icon badge updates with total item count
+
+### Requirement: Cart Sidebar Product Display
+
+The system MUST display cart items in the sidebar with: product thumbnail image (48x48px), product name, product price, and a remove button (`×`) per item. The sidebar MUST have a max-height with overflow scroll when containing many items.
+
+#### Scenario: Cart with items shows thumbnails and details
+
+- GIVEN the cart contains 2 products
+- WHEN the sidebar opens
+- THEN each item MUST show a 48x48 thumbnail, name, price, and remove button
+
+#### Scenario: Empty cart displays message
+
+- GIVEN the cart is empty
+- WHEN the sidebar opens
+- THEN a "Your cart is empty" message MUST be displayed
+
+#### Scenario: Cart with many items is scrollable
+
+- GIVEN the cart contains 20+ products
+- WHEN the sidebar opens
+- THEN the cart list MUST be scrollable with `max-height` and `overflow-y-auto`
+
+#### Scenario: Remove button removes item
+
+- GIVEN the cart contains a product "Apple"
+- WHEN the remove button for "Apple" is clicked
+- THEN "Apple" MUST be removed from the cart and the total MUST update
+
+#### Scenario: Cart images have alt text
+
+- GIVEN a cart item displays a thumbnail
+- WHEN a screen reader reads the image
+- THEN the image MUST have `alt` attribute set to the product name
+
+### Requirement: Cart Total Display
+
+The system MUST display the cart total prominently below the item list, formatted as currency.
+
+#### Scenario: Cart total updates dynamically
+
+- GIVEN cart contains items priced at $10 and $20
+- WHEN the sidebar renders
+- THEN the total MUST display $30 (or locale-formatted equivalent)
+
+### Requirement: Cart Persistence Behavior Unchanged
+
+The system MUST preserve existing behavior: cart state persists in localStorage under `my-store-cart`, add/remove/clear operations work via `CartService`, and total is computed reactively.
+
+#### Scenario: Cart persists after page reload
+
+- GIVEN a product was added to the cart
+- WHEN the page reloads
+- THEN the cart MUST contain the added product
+
+#### Scenario: Adding product increases cart count
+
+- GIVEN the cart is empty
+- WHEN a product is added via `addToCart()`
+- THEN the cart signal MUST update and the header badge MUST increment
